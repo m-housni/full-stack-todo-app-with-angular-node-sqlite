@@ -2,7 +2,7 @@
 
 Full crud Todoapp built with angular and node.
 
-![image](https://github.com/user-attachments/assets/0bd39e49-01ad-4f34-8b47-8be6dc30e1d2)
+![image](https://github.com/user-attachments/assets/5a1ef99b-7c48-478f-a0e2-493d21b6d704)
 
 ## Features
 
