@@ -11,20 +11,10 @@ Full crud Todoapp built with angular and node.
 - Authentication and authorization for secure task management.
 - Using SQLite as a database
 - Dockerized for easy deployment and scalability.
-<<<<<<< HEAD
-=======
-
-## Data flow
-- User authenticates
-- User get redirected to his dashboard where he can manage his tasks
-- He can add new tasks to his list, edit, delete, and mark as complete
-- he can drag drop task items to order them
-- the data is persisted to a AWS RDS
->>>>>>> origin/master
 
 ## Data flow
 
 - User authenticates
 - User get redirected to his dashboard where he can manage his tasks
 - He can add new tasks to his list, edit, delete, and mark as complete
-- he can drag drop task items to order them - the data is persisted to Supabase
+- he can drag drop task items to order them - the data is persisted to a AWS RDS
