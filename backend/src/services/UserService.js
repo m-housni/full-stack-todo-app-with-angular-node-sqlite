@@ -18,6 +18,17 @@ export const login = async (req, res) => {
   res.send("Logged in");
 };
 
+export const register = async (req, res) => {
+  const { email, password } = req.body;
+  const users = await getUsers();
+  const user = users.find((user) => user.email === email);
+  if (user) {
+    return res.status(409).send("User already exists");
+  }
+  await db.users.push({ email, password });
+  res.send("User created");
+}
+
 export default {
   login
 }
