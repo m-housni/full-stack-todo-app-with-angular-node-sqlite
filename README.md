@@ -18,3 +18,7 @@ Full crud Todoapp built with angular and node.
 - User get redirected to his dashboard where he can manage his tasks
 - He can add new tasks to his list, edit, delete, and mark as complete
 - he can drag drop task items to order them - the data is persisted to a AWS RDS
+
+# Steps
+
+- Integrate typescript to the backend

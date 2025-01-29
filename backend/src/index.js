@@ -2,7 +2,6 @@
 import express from 'express';
 import { login } from './services/UserService.js';
 
-
 const app = express();
 app.use(express.json());
 
