@@ -1,9 +1,7 @@
-import { connectDB } from "../config/db.js";
-
-const db = await connectDB();
+import db from "../config/db.js";
 
 export const getUsers = async () => {
-  return await db.users;
+  return await db.collection("users").find({}).toArray();
 }
 
 export const login = async (req, res) => {
