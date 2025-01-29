@@ -1,10 +1,11 @@
 import { Component, NgModule } from '@angular/core';
-import { Todo } from '../../../models/Todo';
-import { FormsModule } from '@angular/forms';
+import { Todo } from '../../models/Todo';
 import { CommonModule } from '@angular/common';
-import { NewTodoComponent } from '../new-todo/new-todo.component';
-import { EditTodoComponent } from '../edit-todo/edit-todo.component';
+import { NewTodoComponent } from './components/new-todo/new-todo.component';
+import { EditTodoComponent } from './components/edit-todo/edit-todo.component';
 import { v4 as uuidv4 } from 'uuid';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-todos',
@@ -14,6 +15,13 @@ import { v4 as uuidv4 } from 'uuid';
   imports: [CommonModule, NewTodoComponent, EditTodoComponent],
 })
 export class TodosComponent {
+
+  constructor(private router: Router, private authService: AuthService) {
+    if (!this.authService.isLoggedIn()) {
+      this.router.navigate(['/']);
+    }
+  }
+
   showAddNewTodoForm: boolean = true;
   showEditTodoForm: boolean = true;
   id!: string;
