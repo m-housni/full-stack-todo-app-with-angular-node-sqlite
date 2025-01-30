@@ -35,6 +35,7 @@ export class HomeComponent implements OnInit {
     if (this.loginForm.valid) {
       const data = this.loginForm.value;
       this.authService.login(data.email, data.password).subscribe((res) => {
+        console.log("res",res);
         if (res) {
           this.router.navigate(['/todos']);
         } else {
