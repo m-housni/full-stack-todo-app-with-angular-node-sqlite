@@ -34,7 +34,11 @@ export class AuthService {
     this.isAuthenticated = false;
   }
 
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
   isLoggedIn(): boolean {
-    return this.isAuthenticated;
+    return !!this.getToken();
   }
 }
