@@ -1,6 +1,6 @@
 // imports
 import express from 'express';
-import { login, register } from './services/UserService.js';
+import { login, register, getUser } from './services/UserService.js';
 import { getTasks } from './services/TaskService.js';
 
 
@@ -9,6 +9,8 @@ app.use(express.json());
 
 app.post('/login', login);
 app.post('/register', register);
+
+app.get('/users/:id', getUser);
 
 app.get('/tasks', getTasks);
 
