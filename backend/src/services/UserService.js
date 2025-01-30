@@ -1,5 +1,6 @@
 import db from "../config/db.js";
 import { ObjectId } from "mongodb";
+import jwt from "jsonwebtoken";
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
@@ -11,7 +12,8 @@ export const login = async (req, res) => {
     return res.status(401).send("Invalid password");
   }
   // TODO: Generate JWT token
-  return res.status(200).send({ token:  "token" });
+  const token = jwt.sign({ email: user.email, id: user._id }, "your_secret_key", { expiresIn: "24h" });
+  return res.status(200).send({ token });
 };
 
 export const register = async (req, res) => {
