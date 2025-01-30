@@ -1,21 +1,30 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private isAuthenticated = false;
+  private API_URL = 'http://localhost:3000/api/v1';
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  login(username: string, password: string): Observable<boolean> {
-    // Mock login logic
-    if (username === 'user' && password === 'password') {
-      this.isAuthenticated = true;
-      return of(true);
-    }
-    return of(false);
+  login(email: string, password: string): Observable<boolean> {
+    return this.http.post<{ token: string }>(`${this.API_URL}/auth/login`, { email, password }).pipe(
+      map(response => {
+        if (response.token) {
+          this.isAuthenticated = true;
+          // Store the token in local storage or a service
+          return true;
+        } else {
+          return false;
+        }
+      }),
+      catchError(() => of(false))
+    );
   }
 
   logout(): void {

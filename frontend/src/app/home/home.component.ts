@@ -33,7 +33,14 @@ export class HomeComponent implements OnInit {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      console.log(this.loginForm.value.email);
+      const data = this.loginForm.value;
+      this.authService.login(data.email, data.password).subscribe((res) => {
+        if (res) {
+          this.router.navigate(['/todos']);
+        } else {
+          console.log('Invalid login');
+        }
+      });
     } else {
       console.log('Invalid form');
     }
