@@ -2,23 +2,23 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private isAuthenticated = false;
   private API_URL = 'http://localhost:3000/api/v1';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   login(email: string, password: string): Observable<boolean> {
     return this.http.post<{ token: string }>(`${this.API_URL}/auth/login`, { email, password }).pipe(
       map(response => {
         if (response.token) {
-          this.isAuthenticated = true;
           // Store the token in local storage or a service
           localStorage.setItem('token', response.token);
+          this.router.navigate(['/todos']);
           return true;
         } else {
           return false;
@@ -31,7 +31,7 @@ export class AuthService {
   logout(): void {
     // Remove token
     localStorage.removeItem('token');
-    this.isAuthenticated = false;
+    this.router.navigate(['/']);
   }
 
   getToken(): string | null {

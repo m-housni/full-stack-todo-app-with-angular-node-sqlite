@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterLink } from '@angular/router';
 import { AuthService } from './services/auth.service';
@@ -12,12 +12,17 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent {
   title = 'first-app';
-  isLoggedIn = false;
+  isLoggedIn = signal(false);
 
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
-    console.log('User is logged in:', this.authService.isLoggedIn());
-    this.isLoggedIn = true;
+    if(this.authService.isLoggedIn())
+      this.isLoggedIn.set(true);
+  }
+
+  logout() {
+    this.authService.logout();
+    this.isLoggedIn.set(false);
   }
 }
