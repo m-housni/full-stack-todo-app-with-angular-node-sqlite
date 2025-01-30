@@ -3,11 +3,13 @@ import express from "express";
 import { login, register, getUser } from "./services/UserService.js";
 import { getTasks } from "./services/TaskService.js";
 import cors from "cors";
+import { authenticateToken } from "./middlewares/index.js";
+
 
 const app = express();
 app.use(express.json());
 
-// Enable CORS for all origins (for development, be more specific in production)
+// cors
 const corsOptions = {
   origin: 'http://localhost:4200', // Or an array of allowed origins
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
@@ -21,7 +23,7 @@ const apiRouter = express.Router();
 apiRouter.post("/auth/login", login);
 apiRouter.post("/auth/register", register);
 // users
-apiRouter.get("/users/:id", getUser);
+apiRouter.get("/users/:email", getUser);
 // tasks
 apiRouter.get("/tasks", getTasks);
 // api version

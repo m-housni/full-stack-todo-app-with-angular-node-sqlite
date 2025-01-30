@@ -12,6 +12,10 @@ export const login = async (req, res) => {
     return res.status(401).send("Invalid password");
   }
   const token = jwt.sign({ email: user.email, id: user._id }, "your_secret_key", { expiresIn: "24h" });
+  await db.collection("users").updateOne(
+    { _id: user._id },
+    { $set: { token: token } }
+  );
   return res.status(200).send({ token });
 };
 
@@ -30,15 +34,21 @@ export const register = async (req, res) => {
 export const getUsers = async () => {
   return await db.collection("users").find({}).toArray();
 }
+
 export const getUser = async (req, res) => {
-  const { id } = req.params;
-  const u = await db.collection("users").findOne({ _id: new ObjectId(id) });
-  if (!u) {
-    return res.status(404).send("User not found");
-  }
-  res.status(200).send({ id: u._id, email: u.email });
+  const { email } = req.params;
+  const u = await db.collection("users").findOne({ email });
+  if(u) {
+    res.status(200).send(u);
+  } else {  
+    res.status(404).send("User not found");
+  } 
 }
 
+export const getUserByToken = async (token) => {
+  const user = await db.collection("users").findOne({ token });
+  return user;
+}
 
 export default {
   login

@@ -1,18 +1,16 @@
-import { getUsers } from "../services/UserService.js";
+import { getUserByToken } from "../services/UserService.js";
 
-export async function checkUser(req, res, next) {
-    const { email, password } = req.body;
-    const users = await getUsers();
-    console.log(users);
-    const user = users.find((user) => user.email === email);
-    if (!user) {
-        return res.status(401).send("User not found");
-    } else if (user.password !== password) {
-        return res.status(401).send("Invalid password");
-    } else {
-        next();
-    }
-}
+export async function authenticateToken(req, res, next) {
+    const authHeader = req.headers["authorization"];
+    const token = authHeader && authHeader.split(" ")[1];
+    if (token == null) return res.sendStatus(401);
+    
+    const user = await getUserByToken(token);
+    if (!user) return res.sendStatus(403);
+    
+    req.user = user;
+    next();
+}0
 
 export default {
     checkUser
