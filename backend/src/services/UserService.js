@@ -11,7 +11,6 @@ export const login = async (req, res) => {
   } else if (user.password !== password) {
     return res.status(401).send("Invalid password");
   }
-  // TODO: Generate JWT token
   const token = jwt.sign({ email: user.email, id: user._id }, "your_secret_key", { expiresIn: "24h" });
   return res.status(200).send({ token });
 };

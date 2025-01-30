@@ -18,6 +18,7 @@ export class AuthService {
         if (response.token) {
           this.isAuthenticated = true;
           // Store the token in local storage or a service
+          localStorage.setItem('token', response.token);
           return true;
         } else {
           return false;
