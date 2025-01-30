@@ -7,12 +7,24 @@ import { getTasks } from './services/TaskService.js';
 const app = express();
 app.use(express.json());
 
-app.post('/login', login);
-app.post('/register', register);
+const apiRouter = express.Router();
 
-app.get('/users/:id', getUser);
 
-app.get('/tasks', getTasks);
+// auth
+apiRouter.post('/auth/login', login);
+apiRouter.post('/auth/register', register);
+
+// users
+apiRouter.get('/users/:id', getUser);
+
+// tasks
+apiRouter.get('/tasks', getTasks);
+
+
+// api version
+app.use('/api/v1', apiRouter);
+
+
 
 app.listen(3000, () => {
   console.log('Server is running on http://localhost:3000');
