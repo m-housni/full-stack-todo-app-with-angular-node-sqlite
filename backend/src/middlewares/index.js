@@ -13,5 +13,5 @@ export async function authenticateToken(req, res, next) {
 }0
 
 export default {
-    checkUser
+    authenticateToken
 }
