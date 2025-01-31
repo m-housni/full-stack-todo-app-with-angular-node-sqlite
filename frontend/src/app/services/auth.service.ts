@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class AuthService {
   private API_URL = 'http://localhost:3000/api/v1';
   isAuth = signal(false);
+  userEmail = signal('');
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -20,6 +21,7 @@ export class AuthService {
           // Store the token in local storage or a service
           localStorage.setItem('token', response.token);
           this.isAuth.set(true);
+          this.userEmail.set(email);
           this.router.navigate(['/todos']);
           return true;
         } else {
@@ -34,6 +36,7 @@ export class AuthService {
     // Remove token
     localStorage.removeItem('token');
     this.isAuth.set(false);
+    this.userEmail.set('');
     this.router.navigate(['/']);
   }
 

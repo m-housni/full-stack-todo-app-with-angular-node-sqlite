@@ -5,7 +5,8 @@
   <p>
     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestiae, omnis.
   </p>
-  <p *ngIf="isLoggedIn() === true">Welcome! <button (click)="logout()">logout</button></p>
+  <p *ngIf="isLoggedIn() === true">Welcome! {{ userEmail() }} ---- <button (click)="logout()">logout</button></p>
+
 </header>
 <main class="p-2">
   <router-outlet></router-outlet>

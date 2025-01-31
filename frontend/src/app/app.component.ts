@@ -13,6 +13,7 @@ import { AuthService } from './services/auth.service';
 export class AppComponent {
   title = 'first-app';
   isLoggedIn = this.authService.isAuth;
+  userEmail = this.authService.userEmail;
 
   constructor(private authService: AuthService) {}
 
