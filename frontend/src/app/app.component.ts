@@ -12,17 +12,11 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent {
   title = 'first-app';
-  isLoggedIn = signal(false);
+  isLoggedIn = this.authService.isAuth;
 
   constructor(private authService: AuthService) {}
 
-  ngOnInit() {
-    if(this.authService.isLoggedIn())
-      this.isLoggedIn.set(true);
-  }
-
   logout() {
     this.authService.logout();
-    this.isLoggedIn.set(false);
   }
 }

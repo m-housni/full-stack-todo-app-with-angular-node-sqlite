@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   private API_URL = 'http://localhost:3000/api/v1';
+  isAuth = signal(false);
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -18,6 +19,7 @@ export class AuthService {
         if (response.token) {
           // Store the token in local storage or a service
           localStorage.setItem('token', response.token);
+          this.isAuth.set(true);
           this.router.navigate(['/todos']);
           return true;
         } else {
@@ -31,6 +33,7 @@ export class AuthService {
   logout(): void {
     // Remove token
     localStorage.removeItem('token');
+    this.isAuth.set(false);
     this.router.navigate(['/']);
   }
 
